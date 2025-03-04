@@ -5,7 +5,8 @@
     "main": "src/handlers/createTicket.ts",
     "scripts": {
         "start": "ts-node src/handlers/createTicket.ts",
-        "test": "jest"
+        "test": "jest",
+        "deploy:main": "serverless deploy --stage main"
     },
     "author": "Calvin Tsang",
     "dependencies": {
