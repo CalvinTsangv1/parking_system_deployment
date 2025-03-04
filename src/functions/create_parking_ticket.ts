@@ -2,7 +2,7 @@ import { dbPut, formatJSONResponse } from "@utils/index";
 import { v4 as uuidv4 } from 'uuid';
 import { LambdaFunction } from '../types';
 
-interface ParkingTicket {
+export interface ParkingTicket {
     id: string;
     license_plate: string;
     startTime: number;
@@ -41,7 +41,7 @@ export const handler: LambdaFunction = async (event) => {
         if (requestBody.vehicleDetails) {
             parkingTicket.vehicleDetails = requestBody.vehicleDetails;
         }
-        
+
         await dbPut(parkingTicket);
 
         return formatJSONResponse({message: "Parking Ticket is created successfully", parkingTicket}, 201);
