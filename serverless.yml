@@ -1,0 +1,41 @@
+service: parking-ticket-system
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  environment:
+    PARKING_TABLE: ${self:service}-${self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:GetItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:Scan
+        - dynamodb:Query
+      Resource: !GetAtt ParkingTable.Arn
+
+functions:
+  createParking:
+    handler: src/functions/create_parking_ticket.handler
+    events:
+      - http:
+          path: parkings
+          method: post
+          cors: true
+
+custom:
+  logRetentionInDays: 30
+  prune:
+    automatic: true
+    number: 3
+
+
+plugins:
+  - serverless-prune-plugin
+  - serverless-offline
+  - serverless-iam-roles-per-function
