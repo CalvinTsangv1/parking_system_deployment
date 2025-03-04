@@ -29,6 +29,10 @@ jobs:
       - name: Run Tests
         run: npm test
 
+      - name: Check AWS CLI version
+        run: aws --version
+
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
