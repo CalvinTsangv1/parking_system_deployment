@@ -31,6 +31,9 @@ A serverless REST API for managing parking ticket using AWS services.
 3. After that, switch to Roles category, and then edit Trust relationships in new role which OIDC Provider (Action: sts:AssumeRoleWithWebIdentity)
 4. Your customized IAM Role ARN code can copy to Git Action secret key environment.
 5. According to your Role ARN, it can access services via the entry.
+![Alt text for the image](docs/images/AWS_Setup.png)
+![Alt text for the image](docs/images/AWS_Setup2.png)
+
 
 ## Local Development Setup and Testing
 1. Clone repository
