@@ -9,7 +9,8 @@
         "test": "jest",
         "deploy:main": "serverless deploy --stage main",
         "offline": "serverless offline",
-        "deploy:dev": "serverless deploy --stage dev"
+        "deploy:dev": "serverless deploy --stage dev",
+        "deploy:prod": "serverless deploy --stage prod"
     },
     "author": "Calvin Tsang",
     "dependencies": {
