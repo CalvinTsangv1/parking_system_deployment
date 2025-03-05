@@ -34,6 +34,8 @@ A serverless REST API for managing parking ticket using AWS services.
 ![Alt text for the image](docs/images/AWS_Setup.png)
 ![Alt text for the image](docs/images/AWS_Setup2.png)
 
+## GitHub Environment Variable Setting
+![Alt text for the image](docs/images/GitHub_Environment_Setting.png)
 
 ## Local Development Setup and Testing
 1. Clone repository
