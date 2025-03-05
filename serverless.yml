@@ -6,6 +6,9 @@ provider:
   name: aws
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
+  deploymentBucket:
+    name: parking-ticket-system-bucket
+  deploymentMethod: direct
   environment:
     DYNAMODB_TABLE: ${env:DYNAMODB_TABLE, 'parking-api-${self:provider.stage}'}
   # IAM Role Statements for DynamoDB access
