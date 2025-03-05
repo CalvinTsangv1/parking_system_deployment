@@ -1,16 +1,16 @@
-## parking_system_deployment
+# parking_system_deployment
 
-# Overview
+## Overview
 A serverless REST API for managing parking ticket using AWS services.
 
-# Features
+## Features
 - Create Parking Ticket
 - Read Parking Ticket
 - List Parking Tickets
 - Update Parking Ticket Information
 - Delete Parking Ticket
 
-# Architecture
+## Architecture
 - AWS API Gateway
 - AWS API Gateway
 - AWS Lambda Functions
@@ -18,25 +18,25 @@ A serverless REST API for managing parking ticket using AWS services.
 - Serverless Framework for infrastructure
 - Node.js with TypeScript
 
-# Prerequisites
+## Prerequisites
 - AWS Account
 - Node.js 18.x
 - Serverless Framework
 - AWS CLI configured
 
-# AWS Deployment Setup
+## AWS Deployment Setup
 1. Create IAM Role first with custom_name
 2. Apply Permission policies (DynmoDB, API Gateway, CloudFormation, S3)
 3. Edit Trust relationships which OIDC Provider (Action: sts:AssumeRoleWithWebIdentity)
 
-# Local Development Setup and Testing
+## Local Development Setup and Testing
 1. Clone repository
 2. npm install
 3. npm run deploy:dev
 
-# Running Tests
+## Running Tests
 ```npm test```
 
-# Deployment
+## Deployment
 - Development: npm run deploy:dev
 - Production: npm run deploy:prod
