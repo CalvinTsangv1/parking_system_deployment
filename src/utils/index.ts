@@ -25,3 +25,47 @@ export const dbPut = async (item: Record<string,any>): Promise<DynamoDB.Document
 
     return dynamoDB.put(params).promise();
 }
+
+export const dbGet = async (id: string): Promise<DynamoDB.DocumentClient.GetItemOutput> => {
+    const params = {
+        TableName: PARKING_TABLE,
+        Key: {id},
+    };
+
+    return dynamoDB.get(params).promise();
+}
+
+export const dbUpdate = async (
+    id: string, 
+    updateExpression: string,
+    expressionAttributeValues: Record<string, any>,
+    expressionAttributeNames?: Record<string, string>
+  ): Promise<any> => {
+    const params = {
+      TableName: PARKING_TABLE,
+      Key: { id },
+      UpdateExpression: updateExpression,
+      ExpressionAttributeValues: expressionAttributeValues,
+      ExpressionAttributeNames: expressionAttributeNames,
+      ReturnValues: 'ALL_NEW',
+    };
+    
+    return dynamoDB.update(params).promise();
+};
+
+export const dbDelete = async (id: string): Promise<any> => {
+    const params = {
+      TableName: PARKING_TABLE,
+      Key: { id },
+    };
+    
+    return dynamoDB.delete(params).promise();
+  };
+  
+  export const dbScan = async (): Promise<any> => {
+    const params = {
+      TableName: PARKING_TABLE,
+    };
+    
+    return dynamoDB.scan(params).promise();
+  };

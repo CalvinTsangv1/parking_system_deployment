@@ -1,52 +1,36 @@
-import { dbPut, formatJSONResponse } from "@utils/index";
+import { dbPut, formatJSONResponse } from "../utils/index";
 import { v4 as uuidv4 } from 'uuid';
-import { LambdaFunction } from '../types';
-
-export interface ParkingTicket {
-    id: string;
-    license_plate: string;
-    startTime: number;
-    endTime: number;
-    vehicleDetails?: {
-        make: string;
-        model: string;
-        year: number;
-    };
-    created_at: number;
-    updated_at: number;
-}
+import { LambdaFunction, ParkingTicket } from '../types';
 
 export const handler: LambdaFunction = async (event) => {
     try {
 
         const requestBody = JSON.parse(event.body);
+        console.log("requestBody", requestBody);
 
-        if (!requestBody.license_plate) {
+        if (!requestBody?.license_plate) {
             return {
                 statusCode: 400,
-                body: JSON.stringify({ message: "license_plate is required" }),
+                body: JSON.stringify({ message: "Missing required fields" }),
             };
         }
-
         const timestamp = new Date().getTime();
         const parkingTicket: ParkingTicket = {
             id: uuidv4(),
             license_plate: requestBody.license_plate,
-            startTime: timestamp,
-            endTime: timestamp + requestBody.duration,
-            created_at: timestamp,
-            updated_at: timestamp,
+            startTime: requestBody.startTime,
+            endTime: requestBody.endTime
         }
 
-        if (requestBody.vehicleDetails) {
+        if (requestBody?.vehicleDetails) {
             parkingTicket.vehicleDetails = requestBody.vehicleDetails;
         }
 
         await dbPut(parkingTicket);
-
-        return formatJSONResponse({message: "Parking Ticket is created successfully", parkingTicket}, 201);
+        console.log("parkingTicket", parkingTicket);
+        return formatJSONResponse({message: "Parking Ticket is created successfully", item: parkingTicket}, 201);
     } catch (error) {
-        return formatJSONResponse({message: error}, 500);
+        return formatJSONResponse({message: "Could not create parking ticket"}, 400);
     }
 };
        
