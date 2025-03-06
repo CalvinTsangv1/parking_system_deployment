@@ -21,6 +21,7 @@ export type LambdaFunction = (
         model: string;
         year: number;
     };
+    isDeleted?: boolean;
     created_at?: number;
     updated_at?: number;
 }
