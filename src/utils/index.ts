@@ -30,6 +30,8 @@ export const dbGet = async (id: string): Promise<DynamoDB.DocumentClient.GetItem
     const params = {
         TableName: PARKING_TABLE,
         Key: {id},
+        FilterExpression: "isDeleted = :isDeletedValue",
+        ExpressionAttributeValues: { ":isDeleted": false }
     };
 
     return dynamoDB.get(params).promise();
@@ -54,17 +56,27 @@ export const dbUpdate = async (
 };
 
 export const dbDelete = async (id: string): Promise<any> => {
+
+  const timestamp = new Date().toISOString();
+  const expressionAttributeValues: Record<string, any> = {
+      ':updatedAt': timestamp,
+  };
     const params = {
       TableName: PARKING_TABLE,
       Key: { id },
+      UpdateExpression: 'SET isDeleted = TRUE, updatedAt = :updatedAt',
+      ExpressionAttributeValues: expressionAttributeValues,
+      ReturnValues: 'ALL_NEW',
     };
     
-    return dynamoDB.delete(params).promise();
+    return dynamoDB.update(params).promise();
   };
   
   export const dbScan = async (): Promise<any> => {
     const params = {
       TableName: PARKING_TABLE,
+      FilterExpression: "isDeleted = :isDeletedValue",
+      ExpressionAttributeValues: { ":isDeleted": false }
     };
     
     return dynamoDB.scan(params).promise();
